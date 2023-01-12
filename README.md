@@ -1,6 +1,6 @@
-# cs61b
-CS 61B: Data Structures \
-This is my attempt to complete UC Berkeley cs course cs61b taught at Spring 2018. \
-\
-Homepage: https://sp18.datastructur.es/ \
-Textbook: https://joshhug.gitbooks.io/hug61b/content/chap1/chap11.html
+# cs61a
+CS 61A: Structure and Interpretation of Computer Programs \
+This is my attempt to complete UC Berkeley cs course cs61a taught at Fall 2020. \
+Homepage: https://inst.eecs.berkeley.edu/~cs61a/fa20/ \
+Textbook: 
+
