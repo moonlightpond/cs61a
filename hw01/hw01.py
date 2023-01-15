@@ -13,9 +13,9 @@ def a_plus_abs_b(a, b):
     ['return f(a, b)']
     """
     if b < 0:
-        f = _____
+        f = lambda a, b : a - b
     else:
-        f = _____
+        f = lambda a, b : a + b
     return f(a, b)
 
 
@@ -37,7 +37,7 @@ def two_of_three(x, y, z):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(two_of_three)).body[0].body]
     ['Expr', 'Return']
     """
-    return _____
+    return x*x + y*y + z*z - max(x*x, y*y, z*z)
 
 
 def largest_factor(n):
@@ -51,6 +51,13 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
+    lf = 1
+    for i in range(n-1, 1, -1):
+        if n % i == 0:
+            lf = i
+            break
+    return lf
+
 
 
 def if_function(condition, true_result, false_result):
@@ -96,12 +103,15 @@ def with_if_function():
 
 def cond():
     "*** YOUR CODE HERE ***"
+    return False
 
 def true_func():
     "*** YOUR CODE HERE ***"
+    print(42)
 
 def false_func():
     "*** YOUR CODE HERE ***"
+    print(47)
 
 
 def hailstone(n):
@@ -120,4 +130,15 @@ def hailstone(n):
     7
     """
     "*** YOUR CODE HERE ***"
-
+    print(n)
+    i = 1
+    while n > 1:
+        if n % 2 == 0:
+            n = n / 2
+        else:
+            n = n * 3 + 1
+        n = int(n)
+        print(n)
+        i = i + 1
+    return i
+        
