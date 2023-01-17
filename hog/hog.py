@@ -23,6 +23,17 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    PigOut = False
+    points = 0
+    for i in range(1, num_rolls + 1):
+        roll = dice()
+        if roll != 1:
+            points += roll
+        else:
+            PigOut = True
+    if PigOut:
+        points = 1
+    return points
     # END PROBLEM 1
 
 
@@ -37,6 +48,7 @@ def free_bacon(score):
     # Trim pi to only (score + 1) digit(s)
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    pi = pi // pow(10, 100-score)
     # END PROBLEM 2
 
     return pi % 10 + 3
@@ -57,6 +69,12 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    score = 0
+    if num_rolls == 0:
+        score = free_bacon(opponent_score)
+    else:
+        score = roll_dice(num_rolls, dice)
+    return score
     # END PROBLEM 3
 
 
@@ -79,6 +97,16 @@ def swine_align(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4a
     "*** YOUR CODE HERE ***"
+    result = False
+    if player_score > 0 and opponent_score > 0:
+        def gcd(a, b):
+            start = max(a, b)
+            while (a % start != 0) or (b % start != 0):
+                start -= 1
+            return start
+        if gcd(player_score, opponent_score) >= 10:
+            result = True
+    return result
     # END PROBLEM 4a
 
 
@@ -101,6 +129,10 @@ def pig_pass(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4b
     "*** YOUR CODE HERE ***"
+    if (player_score < opponent_score) and (opponent_score - player_score < 3):
+        return True
+    else:
+        return False
     # END PROBLEM 4b
 
 
@@ -140,6 +172,16 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    while score0 < goal and score1 < goal:
+        if who == 0:
+            score0 += take_turn(strategy0(score0, score1), score1, dice)
+            tell = extra_turn(score0, score1)
+        else:
+            score1 += take_turn(strategy1(score1, score0), score0, dice)
+            tell = extra_turn(score1, score0) 
+        if not tell:
+            who = other(who)
+        say = say(score0, score1)
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
