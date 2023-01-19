@@ -188,4 +188,6 @@ def make_anonymous_factorial():
     True
     """
     return (lambda a: lambda b: a(a, b))(lambda f, n: 1 if n==1 else n*f(f, n-1))
+    # checked the answer from the internet,
+    # understand about 50%?
 
