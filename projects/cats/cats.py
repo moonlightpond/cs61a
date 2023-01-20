@@ -17,6 +17,14 @@ def choose(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    i, result = -1, ''
+    for p in paragraphs:
+        if select(p):
+            i += 1
+            if i == k:
+                result = p
+    return result
+
     # END PROBLEM 1
 
 
@@ -33,6 +41,15 @@ def about(topic):
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def f(paragraph):
+        p = split(lower(remove_punctuation(paragraph)))
+        result = False
+        for t in topic:
+            for words in p:
+                if t == words:
+                    result = True
+        return result
+    return f
     # END PROBLEM 2
 
 
@@ -57,6 +74,15 @@ def accuracy(typed, reference):
     reference_words = split(reference)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    if len(typed_words) == 0 or len(reference_words) == 0:
+        return 0.0
+    else:
+        n = 0
+        length = min(len(typed_words), len(reference_words))
+        for index in range(length):
+            if typed_words[index] == reference_words[index]:
+                n += 1
+        return n / len(typed_words) * 100
     # END PROBLEM 3
 
 
@@ -65,6 +91,7 @@ def wpm(typed, elapsed):
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    return len(typed) / 5 / (elapsed / 60)
     # END PROBLEM 4
 
 
@@ -75,6 +102,19 @@ def autocorrect(user_word, valid_words, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    if user_word in valid_words:
+        return user_word
+    else:
+        result = user_word
+        l = limit + 1
+        for w in valid_words:
+            if diff_function(user_word, w, limit) < l:
+                l = diff_function(user_word, w, limit)
+                result = w
+        if l > limit:
+            return user_word
+        else:
+            return result
     # END PROBLEM 5
 
 
@@ -84,31 +124,35 @@ def shifty_shifts(start, goal, limit):
     their lengths.
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    def helper(length, n):
+        if n > limit:
+            return limit + 1
+        elif length == 0:
+            return n
+        else:
+            return helper(length-1, n if start[length-1] == goal[length-1] else n+1)
+    return helper(min(len(start), len(goal)), max(len(start), len(goal)) - min(len(start), len(goal)))
     # END PROBLEM 6
 
 
 def pawssible_patches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
-    assert False, 'Remove this line'
-
-    if ______________: # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-
-    elif ___________: # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-
-    else:
-        add_diff = ... # Fill in these lines
-        remove_diff = ...
-        substitute_diff = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    def helper(index1, index2, result, n_ne, count):
+        if index1 == len(start) or index2 == len(goal):
+            if index1 == len(start):
+                #print("a", result + max(len(goal) - index2, n_ne), "b")
+                #print("try")
+                return result + max(len(goal) - index2, n_ne)
+            else:
+                return result + len(start) - index1 + n_ne
+        elif start[index1] not in goal:
+            return helper(index1 + 1, index2, result, n_ne + 1, count)
+        else:
+            if start[index1] == goal[index2]:
+                return helper(index1 + 1, index2 + 1, result + max(n_ne, count), 0, 0)
+            else:
+                return helper(index1, index2 + 1, result, n_ne, count + 1)
+    return helper(0, 0, 0, 0, 0)
 
 
 def final_diff(start, goal, limit):
