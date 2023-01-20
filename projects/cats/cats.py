@@ -137,22 +137,25 @@ def shifty_shifts(start, goal, limit):
 
 def pawssible_patches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
-    def helper(index1, index2, result, n_ne, count):
-        if index1 == len(start) or index2 == len(goal):
+    def helper(index1, index2, result):
+        if result > limit:
+            return limit + 1
+        elif index1 == len(start) or index2 == len(goal):
             if index1 == len(start):
-                #print("a", result + max(len(goal) - index2, n_ne), "b")
-                #print("try")
-                return result + max(len(goal) - index2, n_ne)
+                return result + len(goal) - index2
             else:
-                return result + len(start) - index1 + n_ne
+                return result + len(start) - index1
         elif start[index1] not in goal:
-            return helper(index1 + 1, index2, result, n_ne + 1, count)
+            return min(helper(index1 + 1, index2, result + 1), 
+                helper(index1 + 1, index2 + 1, result + 1)) 
         else:
             if start[index1] == goal[index2]:
-                return helper(index1 + 1, index2 + 1, result + max(n_ne, count), 0, 0)
+                return min(helper(index1 + 1, index2 + 1, result), 
+                    helper(index1 + 1, index2, result + 1))
             else:
-                return helper(index1, index2 + 1, result, n_ne, count + 1)
-    return helper(0, 0, 0, 0, 0)
+                return min(helper(index1, index2 + 1, result + 1),
+                          helper(index1 + 1, index2, result + 1))
+    return helper(0, 0, 0)
 
 
 def final_diff(start, goal, limit):
@@ -169,6 +172,17 @@ def report_progress(typed, prompt, user_id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    result = 0.0
+    if len(typed) != 0:
+        index = 0
+        while typed[index] == prompt[index]:
+            index += 1
+            if index >= len(typed):
+                break
+        result = index / len(prompt)       
+    str = {'id': user_id, 'progress': result}
+    send(str)
+    return result
     # END PROBLEM 8
 
 
@@ -195,6 +209,13 @@ def time_per_word(times_per_player, words):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    times = []
+    for timestamps in times_per_player:
+        t = []
+        for index in range(1, len(timestamps)):
+            t.append(timestamps[index] - timestamps[index - 1])
+        times.append(t)
+    return game(words, times)
     # END PROBLEM 9
 
 
@@ -210,6 +231,18 @@ def fastest_words(game):
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    result = []
+    for i in player_indices:
+        temp = []
+        for word_index in word_indices:
+            index = 0
+            for player_index in player_indices:
+                if time(game, player_index, word_index) < time(game, index, word_index):
+                    index = player_index
+            if index == i:
+                temp.append(word_at(game, word_index))
+        result.append(temp)
+    return result
     # END PROBLEM 10
 
 
