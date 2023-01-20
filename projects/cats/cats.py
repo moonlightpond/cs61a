@@ -137,6 +137,7 @@ def shifty_shifts(start, goal, limit):
 
 def pawssible_patches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
+    """
     def helper(index1, index2, result):
         if result > limit:
             return limit + 1
@@ -156,6 +157,21 @@ def pawssible_patches(start, goal, limit):
                 return min(helper(index1, index2 + 1, result + 1),
                           helper(index1 + 1, index2, result + 1))
     return helper(0, 0, 0)
+    """
+    if limit <= 0:
+        return limit + 1
+    elif len(start) == 0 or len(goal) == 0:
+        return max(len(start), len(goal))
+    elif start[0] == goal[0]:
+        return min(pawssible_patches(start[1:], goal[1:], limit), 
+            pawssible_patches(start[1:], goal, limit-1) + 1)
+    else:
+        return min(pawssible_patches(start, goal[1:], limit-1) + 1, 
+            pawssible_patches(start[1:], goal, limit-1) + 1,
+            pawssible_patches(start[1:], goal[1:], limit-1) + 1)
+    # spent about 2-3 hours figuring out the first solution
+    # then inspired by an online answer of another question
+
 
 
 def final_diff(start, goal, limit):
