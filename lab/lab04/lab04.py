@@ -112,7 +112,7 @@ def max_subseq(n, t):
     >>> max_subseq(20125, 6) # note that 20125 == 020125
     20125
         """
-    def helper(n, t, m, index):
+    def helper(m, index):
         if t == 0 or n == 0:
             return m
         elif m != 0:
@@ -120,7 +120,7 @@ def max_subseq(n, t):
         else:
             return max(helper(n//10, t, m, index), helper(n//10, t-1, n%10, index+1))
 
-    return helper(n, t, 0, 0)
+    return helper(0, 0)
 
 
 def add_chars(w1, w2):
@@ -150,4 +150,16 @@ def add_chars(w1, w2):
     True
     """
     "*** YOUR CODE HERE ***"
+    def helper(index1, index2, str):
+        if index1 >= len(w1):
+            if index2 >= len(w2):
+                return str
+            else:
+                return helper(index1, index2 + 1, str + w2[index2])
+        elif w1[index1] == w2[index2]:
+            return helper(index1 + 1, index2 + 1, str)
+        else:
+            return helper(index1, index2 + 1, str + w2[index2])
+
+    return helper(0, 0, '')
 
