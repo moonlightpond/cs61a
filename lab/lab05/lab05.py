@@ -12,6 +12,11 @@ def couple(s, t):
     """
     assert len(s) == len(t)
     "*** YOUR CODE HERE ***"
+    result = []
+    for i in range(0, len(s)):
+        result.append([s[i], t[i]])
+    return result
+
 
 
 from math import sqrt
@@ -27,6 +32,7 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    return sqrt((get_lat(city_a) - get_lat(city_b))**2 + (get_lon(city_a) - get_lon(city_b))**2)
 
 def closer_city(lat, lon, city_a, city_b):
     """
@@ -44,6 +50,9 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    d1 = sqrt((lat - get_lat(city_a))**2 + (lon - get_lon(city_a))**2)
+    d2 = sqrt((lat - get_lat(city_b))**2 + (lon - get_lon(city_b))**2)
+    return get_name(city_a) if d1 < d2 else get_name(city_b)
 
 def check_city_abstraction():
     """
@@ -237,7 +246,11 @@ def coords(fn, seq, lower, upper):
     [[-2, 4], [1, 1], [3, 9]]
     """
     "*** YOUR CODE HERE ***"
-    return ______
+    result = []
+    for var in seq:
+        if fn(var) >= lower and fn(var) <= upper:
+            result.append([var, fn(var)])
+    return result
 
 
 def riffle(deck):
@@ -250,7 +263,12 @@ def riffle(deck):
     [0, 10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19]
     """
     "*** YOUR CODE HERE ***"
-    return _______
+    length = int(len(deck) * 0.5)
+    result = []
+    for i in range(0, length):
+        result.append(deck[i])
+        result.append(deck[length + i])
+    return result
 
 
 def add_trees(t1, t2):
