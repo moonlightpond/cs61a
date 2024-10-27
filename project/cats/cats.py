@@ -196,6 +196,19 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    if typed_word in word_list:
+        return typed_word
+    else:
+        d = limit + 1
+        t = ''
+        for w in word_list:
+            if diff_function(typed_word, w, limit) < d:
+                d = diff_function(typed_word, w, limit)
+                t = w
+        if d > limit:
+            return typed_word
+        else:
+            return t
     # END PROBLEM 5
 
 
@@ -222,7 +235,18 @@ def furry_fixes(typed, source, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    if limit < 0:
+        return 10
+    if typed == '' or source == '':
+        if max(len(typed), len(source)) <= limit:
+            return max(len(typed), len(source))
+        else:
+            return limit + 1
+    else:
+        if typed[0] == source[0]:
+            return furry_fixes(typed[1:], source[1:], limit)
+        else:
+            return 1 + furry_fixes(typed[1:], source[1:], limit - 1)
     # END PROBLEM 6
 
 
@@ -243,15 +267,19 @@ def minimum_mewtations(typed, source, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-    if ___________: # Base cases should go here, you may add more base cases as needed.
+    if limit < 0: # Base cases should go here, you may add more base cases as needed.
         # BEGIN
         "*** YOUR CODE HERE ***"
+        return 10
         # END
     # Recursive cases should go below here
-    if ___________: # Feel free to remove or add additional cases
+    if typed == '' or source == '': # Feel free to remove or add additional cases
         # BEGIN
         "*** YOUR CODE HERE ***"
+        if max(len(typed), len(source)) <= limit:
+            return max(len(typed), len(source))
+        else:
+            return limit + 1
         # END
     else:
         add = ... # Fill in these lines
@@ -259,6 +287,12 @@ def minimum_mewtations(typed, source, limit):
         substitute = ...
         # BEGIN
         "*** YOUR CODE HERE ***"
+        if typed[0] == source[0]:
+            return minimum_mewtations(typed[1:], source[1:], limit)
+        else:
+            return min(1 + minimum_mewtations(typed, source[1:], limit-1), 
+                       1 + minimum_mewtations(typed[1:], source, limit-1), 
+                       1 + minimum_mewtations(typed[1:], source[1:], limit-1))
         # END
 
 
@@ -305,6 +339,17 @@ def report_progress(typed, source, user_id, upload):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    ratio = 0
+    def helper(t, s):
+        if len(t) == 0 or len(s) == 0:
+            return 0
+        if t[0] == s[0]:
+            return 1 + helper(t[1:], s[1:])
+        else:
+            return 0
+    ratio = helper(typed, source) / len(source)
+    upload({'id': user_id, 'progress': ratio})
+    return ratio
     # END PROBLEM 8
 
 
@@ -328,7 +373,12 @@ def time_per_word(words, timestamps_per_player):
     """
     tpp = timestamps_per_player  # A shorter name (for convenience)
     # BEGIN PROBLEM 9
-    times = []  # You may remove this line
+    times = []  
+    for t in timestamps_per_player:
+        temp = []
+        for i in range(1, len(t)):
+            temp += [t[i] - t[i-1]]
+        times += [temp]
     # END PROBLEM 9
     return {'words': words, 'times': times}
 
@@ -356,6 +406,18 @@ def fastest_words(words_and_times):
     word_indices = range(len(words))    # contains an *index* for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    words = words_and_times['words']
+    times = words_and_times['times']
+    result = [[] for i in range(len(times))]
+    for i in range(len(words)):
+        t = times[0][i]
+        index = 0
+        for j in range(len(times)):
+            if times[j][i] < t:
+                t = times[j][i]
+                index = j
+        result[index] += [words[i]]
+    return result
     # END PROBLEM 10
 
 
