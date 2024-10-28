@@ -5,10 +5,12 @@ I skip discussions.  \
 Homepage: https://cs61a.org/ \
 Textbook: https://www.composingprograms.com/      
 
-| Topics | Readings |
-| :----: | :------: |
-| higher order function, currying, lambda expressions | 1.6 |
-| recursive functions, tree recursion | 1.7 | 
-| native data types | 2.1 |
-| data abstraction, abstraciton barriers | 2.2 |
-| sequence, list, sequence unpacking, list comprehension, tree, linked list | 2.3 |
+| Readings | Topics |
+| :------: | :----: |
+| 1.6 | higher order function, currying, lambda expressions | 
+| 1.7 | recursive functions, tree recursion | 
+| 2.1 | native data types | 
+| 2.2 | data abstraction, abstraciton barriers | 
+| 2.3 | sequence, list, sequence unpacking, list comprehension, tree, linked list | 
+| 2.4 | immutable/mutable object, tuple, dictionary | 
+| 4.2 | iterator, iterable |
