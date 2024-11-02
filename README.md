@@ -13,4 +13,5 @@ Textbook: https://www.composingprograms.com/
 | 2.2 | data abstraction, abstraciton barriers | 
 | 2.3 | sequence, list, sequence unpacking, list comprehension, tree, linked list | 
 | 2.4 | immutable/mutable object, tuple, dictionary | 
-| 4.2 | iterator, iterable |
+| 2.5 | class, inheritance |
+| 4.2 | iterator, iterable, yield |
