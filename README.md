@@ -1,4 +1,4 @@
-# UCB CS61A: Structure and Interpretation of Computer Programs
+# UCB CS61A (Fall 2024): Structure and Interpretation of Computer Programs
 This is my attempt to complete UC Berkeley cs course cs61a taught at Fall 2024. \
 I skip discussions.  \
 \
