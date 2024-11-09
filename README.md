@@ -26,4 +26,4 @@ This is a pretty good begining class for me to review the fundamental cs knowled
 I like that all the lab hw project have provided command lines to check the result.
 
 
-More of my self-study cs courses can be found at: https://github.com/moonlightpond/Self-Study-Computer-Science c:
+More of my self-study cs courses: https://github.com/moonlightpond/Self-Study-Computer-Science c:
