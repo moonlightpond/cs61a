@@ -21,8 +21,9 @@ Projects:
 - [x] ants
 - [ ] scheme
 
-I skip discussions and I feel lazy to finish the scheme/interpreter part lol.   \
-This is a pretty good begining class for me to review the fundamental cs knowledge.  \
-I like that all the lab hw project have provided command lines to check the result.  \
-\ 
+I skip discussions and I feel lazy to finish the scheme/interpreter part lol.    \
+This is a pretty good begining class for me to review the fundamental cs knowledge.    \
+I like that all the lab hw project have provided command lines to check the result.
+
+
 More of my self-study cs courses can be found at: https://github.com/moonlightpond/Self-Study-Computer-Science c:
